@@ -31,4 +31,22 @@
       isOnline = false
     })
   }
+
+  async function initServiceWorker() {
+    swRegistration = await navigator.serviceWorker.register('./sw.js', {
+      updateViaCache: 'none',
+    })
+
+    svcwoker =
+      swRegistration.installing ||
+      swRegistration.waiting ||
+      swRegistration.active
+
+    navigator.serviceWorker.addEventListener(
+      'controllerchange',
+      function onController() {
+        svcwoker = navigator.serviceWorker.controller
+      }
+    )
+  }
 })()
